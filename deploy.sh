@@ -6,7 +6,7 @@ set -e
 echo "===开始执行脚本==="
 
 echo "从仓库拉取代码"
-git pull
+git pull origin main
 echo "拉取代码完成"
 
 echo "================"
