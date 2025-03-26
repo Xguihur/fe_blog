@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+# 获取工作空间路径
+workspace="$WORKSPACE"
+
 # 确保脚本抛出遇到的错误
 set -e
 
@@ -10,11 +13,15 @@ git pull origin main
 echo "拉取代码完成"
 
 echo "================"
-
-echo "开始安装依赖"
-npm i
-echo "依赖安装成功"
-
+# 检查工作空间是否为空
+if [ -z "$(ls -A "$workspace")" ]; then
+    echo "工作空间为空，开始执行 npm i"
+    echo "开始安装依赖"
+    npm i
+    echo "依赖安装成功"
+else
+    echo "工作空间不为空，跳过 npm i"
+fi
 echo "================"
 
 echo "开始打包项目"
