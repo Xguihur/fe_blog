@@ -21,13 +21,10 @@ fi
 
 echo "================"
 # 检查工作空间是否为空
-if [ -z "$(ls -A "$workspace")" ]; then
-    echo "工作空间为空，开始执行 npm i"
+if [ "$NPM_INSTALL" = "true" ]; then
     echo "开始安装依赖"
     npm i
     echo "依赖安装成功"
-else
-    echo "工作空间不为空，跳过 npm i"
 fi
 echo "================"
 
