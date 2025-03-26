@@ -6,11 +6,18 @@ workspace="$WORKSPACE"
 # 确保脚本抛出遇到的错误
 set -e
 
+if [ "$CLEAN_WORKSPACE" = "true" ]; then
+    echo "正在清理工作空间..."
+    rm -rf $WORKSPACE/*
+fi
+
 echo "===开始执行脚本==="
 
-echo "从仓库拉取代码"
-git pull origin main
-echo "拉取代码完成"
+if [ "$PULL_FROM_GITHUB" = "true" ]; then
+    echo "从仓库拉取代码"
+    git pull origin main
+    echo "拉取代码完成"
+fi
 
 echo "================"
 # 检查工作空间是否为空
@@ -30,9 +37,12 @@ echo "打包完成"
 
 echo "================"
 
-echo "开始推送至阿里云服务器，请耐心等待"
-scp -r dist root@www.guihurge.top:/www/wwwroot/www.feblog.com
-echo "推送成功"
+
+if [ "$PUSH_TO_ALIYUN" = "true" ]; then
+    echo "开始推送至阿里云服务器，请耐心等待"
+    scp -r dist root@www.guihurge.top:/www/wwwroot/www.feblog.com
+    echo "推送成功"
+fi
 
 echo "================"
 
